@@ -40,12 +40,12 @@ app.post('/api/exercise/new-user',(req,res)=>{
    
 });
 
-app.get('/api/exercise/users', (req,res)=>{
-  var user = new USER({});
-   res.send(USER.find({}));
+app.get('/api/exercise/users', (err,res)=>{
+ 
   
-  
-    
+  USER.find({},( err,data) =>{
+      err? err: data.forEach(element=>res.send(element))
+  });
 })
 
 
