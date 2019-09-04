@@ -7,6 +7,13 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
 
+var Schema = mongoose.Schema;
+var userSchema = new Schema({
+  username :{ type: String,required:true}  
+})
+
+var User = mongoose.model('User',userSchema);
+
 app.use(cors())
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -18,7 +25,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-
+app.post('/api/exercise/new-user',(req,res)=>{
+  
+   
+   res.json({ username:res.body});
+});
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
