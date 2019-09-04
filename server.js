@@ -26,12 +26,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/exercise/new-user',(req,res)=>{
-   var User = new USER({username: req.body.username })
-   User.save((err,data) =>{
+   var user = new USER({username: req.body.username });
+  
+   user.save((err,data) =>{
      if(err){
        return err;
      } else{
-       res.send(data);
+       res.json({username:data.username});
      } 
    });
    
