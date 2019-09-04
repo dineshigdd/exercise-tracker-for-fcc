@@ -10,7 +10,10 @@ app.use(cors())
 
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
-  username:{ type: String,required:true}  
+  username:{ type: String,required:true},
+  description:{type: String, required:true},
+  duration:{type:Number, required:true},
+  date:{type: Date, default:Date.now()}
 })
 
 var USER = mongoose.model('USER',userSchema);
@@ -42,15 +45,18 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
   
-  var user = new USER({username: req.body.username });
+  USER.findById({ _id: req.body.userId}, (err,data) =>{
+    
+    data.description = {}
+  })
   
-   user.save((err,data) =>{
-     if(err){
-       return err;
-     } else{
-       res.json({username: data.username, Id:data._id});
-     } 
-   });
+   // user.save((err,data) =>{
+   //   if(err){
+   //     return err;
+   //   } else{
+   //     res.json({username: data.username, Id:data._id});
+   //   } 
+   // });
 })
 
 app.get('/api/exercise/users', (err,res)=>{
