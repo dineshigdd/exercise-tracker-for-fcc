@@ -29,11 +29,11 @@ app.post('/api/exercise/new-user',(req,res)=>{
    var User = new USER({username: req.body.username })
    User.save((err,data) =>{
      if(err){
-       return err
+       return err;
      } else{
-       res.send({ test: data.username});
+       res.send(data);
      } 
-   })
+   });
    
 });
 // Not found middleware
