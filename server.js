@@ -12,7 +12,7 @@ var userSchema = new Schema({
   username :{ type: String,required:true}  
 })
 
-var User = mongoose.model('User',userSchema);
+var USER = mongoose.model('USER',userSchema);
 
 app.use(cors())
 
@@ -26,9 +26,15 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/exercise/new-user',(req,res)=>{
-  
+   var User = new USER({username: req.body.username })
+   User.save((err,data) =>{
+     if(err){
+       return err
+     } else{
+       res.send({ test: data.username});
+     } 
+   })
    
-   res.json({ username:res.body});
 });
 // Not found middleware
 app.use((req, res, next) => {
