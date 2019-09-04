@@ -6,15 +6,16 @@ const cors = require('cors')
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
+app.use(cors())
 
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
-  username :{ type: String,required:true}  
+  username:{ type: String,required:true}  
 })
 
 var USER = mongoose.model('USER',userSchema);
 
-app.use(cors())
+
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -26,13 +27,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/exercise/new-user',(req,res)=>{
+  
    var user = new USER({username: req.body.username });
   
    user.save((err,data) =>{
      if(err){
        return err;
      } else{
-       res.json({username:data.username});
+       res.json({username: data.username, Id:data._id});
      } 
    });
    
