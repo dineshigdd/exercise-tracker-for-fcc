@@ -39,6 +39,25 @@ app.post('/api/exercise/new-user',(req,res)=>{
    });
    
 });
+
+app.get('/api/exercise/users', (data)=>{
+  
+  USER.find({data}), (err,data)=>{
+    (err)? done(err):done(null,data)   
+  }
+    
+})
+
+
+var findPeopleByName = function(personName, done) {
+  
+  Person.find({ name: personName }, (err,data)=>{
+    
+    (err)? done(err):done(null,data)    
+    
+  });
+  
+};
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
