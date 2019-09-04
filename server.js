@@ -43,21 +43,17 @@ app.post('/api/exercise/new-user',(req,res)=>{
    
 });
 
-app.post('/api/exercise/add', (req,res)=>{
+// app.post('/api/exercise/add', (req,res)=>{
   
-  USER.findById({ _id: req.body.userId}, (err,data) =>{
+//   USER.findById({ _id: req.body.userId}, (err,data) =>{
     
-    data.description = {}
-  })
+//     data.description = req.body.description 
+//     data.duration = req.body.duration
+//     data.date = req.body.date
+//   })
   
-   // user.save((err,data) =>{
-   //   if(err){
-   //     return err;
-   //   } else{
-   //     res.json({username: data.username, Id:data._id});
-   //   } 
-   // });
-})
+
+// })
 
 app.get('/api/exercise/users', (err,res)=>{
  
