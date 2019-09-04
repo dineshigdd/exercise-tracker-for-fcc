@@ -40,11 +40,28 @@ app.post('/api/exercise/new-user',(req,res)=>{
    
 });
 
+app.post('/api/exercise/add', (req,res)=>{
+  
+  var user = new USER({username: req.body.username });
+  
+   user.save((err,data) =>{
+     if(err){
+       return err;
+     } else{
+       res.json({username: data.username, Id:data._id});
+     } 
+   });
+})
+
 app.get('/api/exercise/users', (err,res)=>{
  
   
   USER.find({},( err,data) =>{
-      err? err: data.forEach(element=>res.send(element))
+      if(err){
+        return err
+      } else{
+        res.json(data);
+      }
   });
 })
 
