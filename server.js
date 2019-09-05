@@ -49,14 +49,19 @@ app.post('/api/exercise/new-user',(req,res)=>{
 });
 
 app.post('/api/exercise/add', (req,res)=>{
-  User.save((err,data) =>{
+  
+  var exerciseLog = new ExerciseLog({  userId:req.body.userId,
+                                       description:req.body.description,
+                                       duration: req.body.duration,
+                                       date : req.body.date});
+  exerciseLog.save((err,data) =>{
      if(err){
        return err;
      } else{
-           res.json({userId:req.body.userId,
-                 description:req.body.description,
-                 duration: req.body.duration,
-                 date : req.body.date});
+           res.json({userId:data.userId,
+                 description:data.description,
+                 duration: data.duration,
+                 date : data.date});
          } 
    }); 
 
