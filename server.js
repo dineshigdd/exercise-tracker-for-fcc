@@ -56,7 +56,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
     
-  User.findOneAndUpdate({ _id:req.body.userId }, {log:[{ 
+  User.findOneAndUpdate({ _id:req.body.userId }, {log:[{
                               description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
