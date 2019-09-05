@@ -10,13 +10,18 @@ app.use(cors())
 
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
-  username:{ type: String,required:true},
+  username:{ type: String,required:true}  
+})
+var User = mongoose.model('User',userSchema);
+
+var exerciseLogSchema = new Schema({
+  userId:{ type: String, required:true },
   description:{type: String, required:true},
   duration:{type:Number, required:true},
   date:{type: Date, default:Date.now()}
 })
 
-var USER = mongoose.model('USER',userSchema);
+var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
 
 
 
@@ -31,7 +36,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/exercise/new-user',(req,res)=>{
   
-   var user = new USER({username: req.body.username });
+   var user = new User({username: req.body.username });
   
    user.save((err,data) =>{
      if(err){
@@ -43,22 +48,24 @@ app.post('/api/exercise/new-user',(req,res)=>{
    
 });
 
-// app.post('/api/exercise/add', (req,res)=>{
-  
-//   USER.findById({ _id: req.body.userId}, (err,data) =>{
-    
-//     data.description = req.body.description 
-//     data.duration = req.body.duration
-//     data.date = req.body.date
-//   })
-  
+app.post('/api/exercise/add', (req,res)=>{
+  User.save((err,data) =>{
+     if(err){
+       return err;
+     } else{
+           res.json({userId:req.body.userId,
+                 description:req.body.description,
+                 duration: req.body.duration,
+                 date : req.body.date});
+         } 
+   }); 
 
-// })
+})
 
 app.get('/api/exercise/users', (err,res)=>{
  
   
-  USER.find({},( err,data) =>{
+  User.find({},( err,data) =>{
       if(err){
         return err
       } else{
