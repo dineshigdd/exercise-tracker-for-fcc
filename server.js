@@ -60,12 +60,17 @@ app.post('/api/exercise/add', (req,res)=>{
   User.findById(req.body.userId, (err,data) =>{
     console.log(req.body)
   
-  var user = new User({   username:data.username,
-                         log:[{ description:req.body.description,
-                              duration: req.body.duration,
-                              date : req.body.date}]
+  var user = new User({username:data.username,                 
+                       user.log.description : req.body.description,
+                      user.log.duration : req.body.duration,
+                      user.log.date : req.body.date
+                      
+                      
                       });
-  
+    
+ 
+                     
+  console.log(user)
 
   user.save((err,data) =>{
      if(err){
