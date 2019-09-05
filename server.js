@@ -57,11 +57,11 @@ app.post('/api/exercise/new-user',(req,res)=>{
 app.post('/api/exercise/add', (req,res)=>{
     
   User.findById(req.body.userId, (err,data) =>{
-    console.log(req.body)
+    
   
   var user = new User({username:data.username,                 
-                       log:[ 
-                           { description : req.body.description,
+                       log:[{ 
+                              description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
                        }]                      
@@ -69,18 +69,19 @@ app.post('/api/exercise/add', (req,res)=>{
     
  
                      
-  console.log(user)
+  
 
   user.save((err,data) =>{
      if(err){
         res.send(err)
      } else{
+       console.log(data)
        res.json({username: data.username, 
                  userId:data.userId,
                  log:[{
-                     description:data.description,
-                     duration: data.duration,
-                     date : data.date
+                       description:data.description,
+                       duration: data.duration,
+                       date : data.date
                     }]
                 })
            
