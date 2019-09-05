@@ -48,7 +48,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
      if(err){
        return err;
      } else{
-       res.json({username: data.username, Id:data._id});
+       res.json({username: data.username, userId:data._id});
      } 
    });
    
@@ -62,29 +62,12 @@ app.post('/api/exercise/add', (req,res)=>{
                               date : req.body.date
                        }]}, (err,data) =>{
     
-res.send(data)
+res.json({userId: data._id,username: data.username,log:[{
+                              description : req.body.description,
+                              duration : req.body.duration,
+                              date : req.body.date}]})
   
-  // var user = new User({username:data.username,                
-  //                      log:[{ 
-  //                             description : req.body.description,
-  //                             duration : req.body.duration,
-  //                             date : req.body.date
-  //                      }]                      
-  //                     });
-    
- 
-             
- 
-
-//   user.updateOne((err,data) =>{
-//      if(err){
-//         res.send(err)
-//      } else{
-//        console.log(data)
-//        res.json(data)
-           
-//          } 
-//    }); 
+  
   });
 
 })
