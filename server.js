@@ -57,21 +57,24 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
   
-  var user = new User({  userId:req.body.userId,
-                                       description:req.body.description,
-                                       duration: req.body.duration,
-                                       date : req.body.date});
-  User.findBy
-  // exerciseLog.save((err,data) =>{
-  //    if(err){
-  //      return err;
-  //    } else{
-  //          res.json({userId:data.userId,
-  //                description:data.description,
-  //                duration: data.duration,
-  //                date : data.date});
-  //        } 
-  //  }); 
+  var user = new User({ log:{ description:req.body.description,
+                              duration: req.body.duration,
+                              date : req.body.date}
+                      });
+  
+  User.findById(req.body.userId, (err,data) =>{
+    console.log(data)
+  })
+  user.save((err,data) =>{
+     if(err){
+       return err;
+     } else{
+           res.json({userId:data.userId,
+                 description:data.description,
+                 duration: data.duration,
+                 date : data.date});
+         } 
+   }); 
 
 })
 
