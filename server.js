@@ -10,18 +10,25 @@ app.use(cors())
 
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
-  username:{ type: String,required:true}  
-})
+  username:{ type: String,required:true},
+  log:[{
+        userId:{ type: String, required:true },
+        description:{ type: String, required:true},
+        duration:{ type:Number, required:true},
+        date:{ type: Date, default:Date.now()}
+      }]
+  });
+       
 var User = mongoose.model('User',userSchema);
 
-var exerciseLogSchema = new Schema({
-  userId:{ type: String, required:true },
-  description:{type: String, required:true},
-  duration:{type:Number, required:true},
-  date:{type: Date, default:Date.now()}
-})
+// var exerciseLogSchema = new Schema({
+//   userId:{ type: String, required:true },
+//   description:{type: String, required:true},
+//   duration:{type:Number, required:true},
+//   date:{type: Date, default:Date.now()}
+// })
 
-var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
+// var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
 
 
 
@@ -50,20 +57,21 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
   
-  var exerciseLog = new ExerciseLog({  userId:req.body.userId,
+  var user = new User({  userId:req.body.userId,
                                        description:req.body.description,
                                        duration: req.body.duration,
                                        date : req.body.date});
-  exerciseLog.save((err,data) =>{
-     if(err){
-       return err;
-     } else{
-           res.json({userId:data.userId,
-                 description:data.description,
-                 duration: data.duration,
-                 date : data.date});
-         } 
-   }); 
+  User.findBy
+  // exerciseLog.save((err,data) =>{
+  //    if(err){
+  //      return err;
+  //    } else{
+  //          res.json({userId:data.userId,
+  //                description:data.description,
+  //                duration: data.duration,
+  //                date : data.date});
+  //        } 
+  //  }); 
 
 })
 
