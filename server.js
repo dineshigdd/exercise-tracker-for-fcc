@@ -56,31 +56,35 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
     
-  User.findById(req.body.userId, (err,data) =>{
-    
-  console.log(data)
-  
-  var user = new User({username:data.username,                
-                       log:[{ 
+  User.findOneAndUpdate({ _id:req.body.userId }, {log:[{ 
                               description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
-                       }]                      
-                      });
+                       }]}, (err,data) =>{
+    
+res.send(data)
+  
+  // var user = new User({username:data.username,                
+  //                      log:[{ 
+  //                             description : req.body.description,
+  //                             duration : req.body.duration,
+  //                             date : req.body.date
+  //                      }]                      
+  //                     });
     
  
              
  
 
-  user.insert((err,data) =>{
-     if(err){
-        res.send(err)
-     } else{
-       console.log(data)
-       res.json(data)
+//   user.updateOne((err,data) =>{
+//      if(err){
+//         res.send(err)
+//      } else{
+//        console.log(data)
+//        res.json(data)
            
-         } 
-   }); 
+//          } 
+//    }); 
   });
 
 })
