@@ -91,14 +91,14 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.find({ _id: req.query.userId },( err,data) =>{
+  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
   
       if(err){
         return err
       } else{
         //console.log(data.log.length)
         console.log(data)
-        res.send(data.userId)
+        res.send(data)
         
       }
   });
