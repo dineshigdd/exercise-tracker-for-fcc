@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/exercise/new-user',(req,res)=>{
   
-   var user = new User({username: req.body.username }, {log:[{}]});
+   var user = new User({username: req.body.username });
   
    user.save((err,data) =>{
      if(err){
@@ -53,17 +53,18 @@ app.post('/api/exercise/add', (req,res)=>{
     
   User.find({ _id:req.body.userId },  (err,data) =>{
  
-    
-    var exerciseLog = [{ description : req.body.description,
+   
+    var exerciseLog = { description : req.body.description,
                          duration : req.body.duration,
-                        date : req.body.date }];
+                        date : req.body.date };
     
-    data.log = (exerciseLog);
-    data.save((err,exdata)=>{
+    data.log = exerciseLog);
+    
+    data.save((err,data)=>{
       if(err){
         return err;
       }else{
-        res.send(exdata)
+        res.send(data)
       }
     })
   
