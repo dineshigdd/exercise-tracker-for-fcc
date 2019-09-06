@@ -62,7 +62,23 @@ app.post('/api/exercise/add', (req,res)=>{
                               date : req.body.date
                        }]}, (err,data) =>{
 
-  console.log(data.log)
+ // if(data.log == undefined){
+    var user = new User({log:[{
+                              description : req.body.description,
+                              duration : req.body.duration,
+                              date : req.body.date
+                       }]});
+    user.insertOne((err,data) =>{
+      if( err ){
+        return err;
+      }else{
+        res.json({userId: data._id,username: data.username,log:[{
+                              description : data.description,
+                              duration : data.duration,
+                              date : data.date}]})
+      }
+    })
+  //}
 // res.json({userId: data._id,username: data.username,log:[{
 //                               description : data.description,
 //                               duration : data.duration,
