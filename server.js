@@ -57,35 +57,19 @@ app.post('/api/exercise/add', (req,res)=>{
     
   User.find({ _id:req.body.userId },  (err,data) =>{
  
- 
     
-    var exerciseLog = [{
-                              description : req.body.description,
-                              duration : req.body.duration,
-                              date : req.body.date
-                              }];
+    var exerciseLog = [{ description : req.body.description,
+                         duration : req.body.duration,
+                        date : req.body.date }];
+    
     data.log.push(exerciseLog);
-    data.save((err,exdata) =>{
-      if( err ){
-        return err;
-      }else{
-        res.send(exdata)
-        // res.json({userId: data._id,log:[{
-        //                       description : data.description,
-        //                       duration : data.duration,
-        //                       date : data.date}]})
-      }
+    data.save((err,exdata)=>{
+      
     })
-  }
-// res.json({userId: data._id,username: data.username,log:[{
-//                               description : data.description,
-//                               duration : data.duration,
-//                               date : data.date}]})
-  
   
   });
 
-})
+});
 
 app.get('/api/exercise/users', (req,res)=>{
  
