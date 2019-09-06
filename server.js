@@ -91,12 +91,14 @@ app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
   ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
-    console.log(data)
+  
       if(err){
         return err
       } else{
         //console.log(data.log.length)
-        res.json(data);
+          //console.log(data)
+        res.send(data.userId)
+        
       }
   });
 })
