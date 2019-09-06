@@ -20,14 +20,13 @@ var userSchema = new Schema({
        
 var User = mongoose.model('User',userSchema);
 
-// var exerciseLogSchema = new Schema({
-//   userId:{ type: String, required:true },
-//   description:{type: String, required:true},
-//   duration:{type:Number, required:true},
-//   date:{type: Date, default:Date.now()}
-// })
+var exerciseLogSchema = new Schema({
+  description:{type: String, required:true},
+  duration:{type:Number, required:true},
+  date:{type: Date, default:Date.now()}
+})
 
-// var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
+var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
 
 
 
@@ -57,21 +56,24 @@ app.post('/api/exercise/new-user',(req,res)=>{
 app.post('/api/exercise/add', (req,res)=>{
     
   User.find({ _id:req.body.userId },  (err,data) =>{
-
+ 
  if(data.log == undefined){
-    var user = new User({_id:req.body.userId} ,{log:[{
+    
+    var exerciseLog = new ExerciseLog({
                               description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
-                       }]});
-    user.save((err,data) =>{
+                              });
+    data.log.push(exerciseLog);
+    exerciseLog.save((err,exdata) =>{
       if( err ){
         return err;
       }else{
-        res.json({userId: data._id,log:[{
-                              description : data.description,
-                              duration : data.duration,
-                              date : data.date}]})
+        res.send(data)
+        // res.json({userId: data._id,log:[{
+        //                       description : data.description,
+        //                       duration : data.duration,
+        //                       date : data.date}]})
       }
     })
   }
