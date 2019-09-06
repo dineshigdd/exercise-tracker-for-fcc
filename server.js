@@ -11,7 +11,7 @@ app.use(cors())
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
   username:{ type: String,required:true},
-  log:{ type: [String], default:["test"]}
+  log:{ type: [Object], default:[]}
   });
        
 var User = mongoose.model('User',userSchema);
@@ -51,15 +51,15 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
     
-  User.find({ _id:req.body.userId },  (err,data) =>{
+  User.findById({ _id:req.body.userId },  (err,data) =>{
  
    
-    // var exerciseLog = { description : req.body.description,
-    //                      duration : req.body.duration,
-    //                     date : req.body.date };
-    console.log(Array.isArray(data.log))
-    var test = "testthis"
-    data.log.push(test)
+    var exerciseLog = { description : req.body.description,
+                         duration : req.body.duration,
+                        date : req.body.date };
+   
+   
+    data.log.push(exerciseLog)
     
     data.save((err,data)=>{
       if(err){
@@ -88,7 +88,7 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  User.find({ _id: req.query.userId },( err,data) =>{
+  User.findById({ _id: req.query.userId },( err,data) =>{
       if(err){
         return err
       } else{
