@@ -11,7 +11,7 @@ app.use(cors())
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
   username:{ type: String,required:true},
-  log:{ [], required:true}
+  log:{ type: [Object], default:[{}]}
   });
        
 var User = mongoose.model('User',userSchema);
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/exercise/new-user',(req,res)=>{
   
-   var user = new User({username: req.body.username });
+   var user = new User({username: req.body.username }, {log:[{}]});
   
    user.save((err,data) =>{
      if(err){
