@@ -84,6 +84,9 @@ app.get('/api/exercise/users', (err,res)=>{
   });
 })
 
+app.get('/api/exercise/log', (err, res) =>{
+  res.send(req.body)
+})
 
 
 // Not found middleware
