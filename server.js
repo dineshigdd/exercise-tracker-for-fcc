@@ -58,7 +58,7 @@ app.post('/api/exercise/add', (req,res)=>{
                          duration : req.body.duration,
                         date : req.body.date };
     
-    data.log = exerciseLog);
+    data.log = exerciseLog;
     
     data.save((err,data)=>{
       if(err){
