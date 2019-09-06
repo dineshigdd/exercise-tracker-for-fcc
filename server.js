@@ -87,13 +87,13 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  // User.find({},( err,data) =>{
-  //     if(err){
-  //       return err
-  //     } else{
-  //       res.json(data);
-  //     }
-  // });
+  User.find({ _id: req.query.userId },( err,data) =>{
+      if(err){
+        return err
+      } else{
+        res.json(data);
+      }
+  });
 })
 
 // Not found middleware
