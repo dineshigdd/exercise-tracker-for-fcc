@@ -60,11 +60,12 @@ app.post('/api/exercise/add', (req,res)=>{
  
    
     var exerciseLog = new ExerciseLog( 
-                      {userId:req.body.userId },{  
+                      {  userId:req.body.userId,
+                      log:[{  
                          description : req.body.description,
                          duration : req.body.duration,
                          date : req.body.date,
-                         });
+                         }]});
    
    
     //data.log.push(exerciseLog)
