@@ -57,19 +57,19 @@ app.post('/api/exercise/add', (req,res)=>{
     
   User.find({ _id:req.body.userId },  (err,data) =>{
  
- if(data.log == undefined){
+ 
     
-    var exerciseLog = new ExerciseLog({
+    var exerciseLog = [{
                               description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
-                              });
+                              }];
     data.log.push(exerciseLog);
-    exerciseLog.save((err,exdata) =>{
+    data.save((err,exdata) =>{
       if( err ){
         return err;
       }else{
-        res.send(data)
+        res.send(exdata)
         // res.json({userId: data._id,log:[{
         //                       description : data.description,
         //                       duration : data.duration,
