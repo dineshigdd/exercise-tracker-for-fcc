@@ -11,7 +11,7 @@ app.use(cors())
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
   username:{ type: String,required:true},
-  log:{ type: [Object], default:[{}]}
+  log:{ type: [String], default:["test"]}
   });
        
 var User = mongoose.model('User',userSchema);
@@ -54,11 +54,12 @@ app.post('/api/exercise/add', (req,res)=>{
   User.find({ _id:req.body.userId },  (err,data) =>{
  
    
-    var exerciseLog = { description : req.body.description,
-                         duration : req.body.duration,
-                        date : req.body.date };
-    
-    data.log = exerciseLog;
+    // var exerciseLog = { description : req.body.description,
+    //                      duration : req.body.duration,
+    //                     date : req.body.date };
+    console.log(Array.isArray(data.log))
+    var test = "testthis"
+    data.log.push(test)
     
     data.save((err,data)=>{
       if(err){
