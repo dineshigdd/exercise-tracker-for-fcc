@@ -90,11 +90,12 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.findById({ userId: req.query.userId },( err,data) =>{
+  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
+    console.log(data)
       if(err){
         return err
       } else{
-        console.log(data.log.length)
+        //console.log(data.log.length)
         res.json(data);
       }
   });
