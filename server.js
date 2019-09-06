@@ -56,22 +56,22 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
   
-    User.find( {_id:req.body.userId },{log,(err,data) =>{
-      console.log(data.username)
-    })
-//   User.findOneAndUpdate({ _id:req.body.userId }, {log:[{
-//                               description : req.body.description,
-//                               duration : req.body.duration,
-//                               date : req.body.date
-//                        }]}, (err,data) =>{
     
-// res.json({userId: data._id,username: data.username,log:[{
+  User.find({ _id:req.body.userId }, {log:[{
+                              description : req.body.description,
+                              duration : req.body.duration,
+                              date : req.body.date
+                       }]}, (err,data) =>{
+    if( data.log == [] ){
+      
+    }
+// rC{userId: data._id,username: data.username,log:[{
 //                               description : req.body.description,
 //                               duration : req.body.duration,
 //                               date : req.body.date}]})
   
   
-//   });
+  });
 
 })
 
