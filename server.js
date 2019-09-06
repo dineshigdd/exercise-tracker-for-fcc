@@ -61,9 +61,12 @@ app.post('/api/exercise/add', (req,res)=>{
                               duration : req.body.duration,
                               date : req.body.date
                        }]}, (err,data) =>{
-if({log: data.log} == {}){
+
+  if(  {log:data.log}.length == 0 ){
   res.send("yes");
-}
+  }else{
+    res.send({log:data.log});
+  }
 // res.json({userId: data._id,username: data.username,log:[{
 //                               description : data.description,
 //                               duration : data.duration,
