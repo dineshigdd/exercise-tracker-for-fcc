@@ -56,16 +56,18 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
     
-  User.findOneA({ _id:req.body.userId }, {log:[{
+  User.find({ _id:req.body.userId }, {log:[{
                               description : req.body.description,
                               duration : req.body.duration,
                               date : req.body.date
                        }]}, (err,data) =>{
-    
-res.json({userId: data._id,username: data.username,log:[{
-                              description : data.description,
-                              duration : data.duration,
-                              date : data.date}]})
+if({log: data.log} == {}){
+  res.send("yes");
+}
+// res.json({userId: data._id,username: data.username,log:[{
+//                               description : data.description,
+//                               duration : data.duration,
+//                               date : data.date}]})
   
   
   });
