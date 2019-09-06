@@ -55,7 +55,8 @@ app.post('/api/exercise/add', (req,res)=>{
   User.findById({ _id:req.body.userId },  (err,data) =>{
  
    
-    var exerciseLog = new ExerciseLog({  description : req.body.description,
+    var exerciseLog = new ExerciseLog({  
+                         description : req.body.description,
                          duration : req.body.duration,
                          date : req.body.date,
                          userId:req.body.userId });
@@ -90,13 +91,13 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
+  ExerciseLog.find({ _id: req.query.userId },( err,data) =>{
   
       if(err){
         return err
       } else{
         //console.log(data.log.length)
-          //console.log(data)
+        console.log(data)
         res.send(data.userId)
         
       }
