@@ -55,15 +55,15 @@ app.post('/api/exercise/add', (req,res)=>{
   User.findById({ _id:req.body.userId },  (err,data) =>{
  
    
-    var exerciseLog = {  description : req.body.description,
+    var exerciseLog = new ExerciseLog({  description : req.body.description,
                          duration : req.body.duration,
                          date : req.body.date,
-                         userId:req.body.userId };
+                         userId:req.body.userId });
    
    
     //data.log.push(exerciseLog)
     
-    data.save((err,data)=>{
+    exerciseLog.save((err,data)=>{
       if(err){
         return err;
       }else{
@@ -90,7 +90,7 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  User.findById({ _id: req.query.userId },( err,data) =>{
+  ExerciseLog.findById({ userId: req.query.userId },( err,data) =>{
       if(err){
         return err
       } else{
