@@ -111,7 +111,7 @@ app.get('/api/exercise/log', (req,res)=>{
 })
 
 app.get('/api/remove', req,res) => {
-  User.remvove
+  User.remvove()
 }
 // Not found middleware
 app.use((req, res, next) => {
