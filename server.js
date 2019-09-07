@@ -74,7 +74,7 @@ app.post('/api/exercise/add', (req,res)=>{
       if(err){
         return err;
       }else{
-        res.send(data)
+        res.json({data[0].userId)
       }
     })
   
@@ -89,6 +89,7 @@ app.get('/api/exercise/users', (req,res)=>{
       if(err){
         return err
       } else{
+        
         res.json(data);
       }
   });
@@ -103,8 +104,8 @@ app.get('/api/exercise/log', (req,res)=>{
         return err
       } else{
         //console.log(data.log.length)
-        console.log(data)
-        res.send({ userId : data.userId, log:data.log})
+        console.log(data.userId)
+        res.send(  data    )
         
       }
   });
