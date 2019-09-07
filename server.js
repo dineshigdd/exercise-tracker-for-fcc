@@ -110,10 +110,20 @@ app.get('/api/exercise/log', (req,res)=>{
   });
 })
 
-app.get('/api/remove', (req,res) => {
-  User.remove({})
-  ExerciseLog.remove({})
+app.get('/api/exercise/user-remove', (req,res) => {
+  User.remove({}, (err,data)=>{
+    res.send(data);
+  }) 
+   
 })
+
+app.get('/api/exercise/ex-remove', (req,res) => {
+  ExerciseLog.remove({}, (err,data)=>{
+    res.send(data);
+  })
+  
+})
+  
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
