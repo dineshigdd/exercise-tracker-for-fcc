@@ -106,7 +106,8 @@ app.get('/api/exercise/log', (req,res)=>{
         //console.log(data.log.length)
         console.log(data.userId)
         res.json({ userId: data[0].userId,
-                   log: data[0].log })    
+                   log: data[0].log
+                 }    
         
       }
   });
