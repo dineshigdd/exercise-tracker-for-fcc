@@ -104,7 +104,7 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         //console.log(data.log.length)
         console.log(data)
-        res.send(data)
+        res.send({ userId : data.userId, log:data.log})
         
       }
   });
