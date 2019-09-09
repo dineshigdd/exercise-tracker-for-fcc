@@ -105,9 +105,12 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         //console.log(data.log.length)
         console.log(data)
-        // res.json({ userId: data[0].userId,
-        //            log: data[0].log[0].date
-        //          })
+        res.json({ userId: data[0].userId,
+                   log: { description: data[0].description,
+                          duration: data[0].duration,
+                          date:data[0].log[0].date 
+                        }
+                 })
         
       }
   });
