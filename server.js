@@ -58,7 +58,9 @@ app.post('/api/exercise/add', (req,res)=>{
   
   User.findById({ _id:req.body.userId },  (err,data) =>{
  
-   
+    ExerciseLog.findById({ _id:req.body.userId }(err,data)){
+      
+    }
     var exerciseLog = new ExerciseLog( 
                       {  _id:data._id,
                           log:[{  
