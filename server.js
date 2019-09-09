@@ -11,17 +11,18 @@ app.use(cors())
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
   username:{ type: String,required:true},
-  // log:{ type: [Object], default:[]}
+  
   });
        
 var User = mongoose.model('User',userSchema);
 
 var log = new Schema(
       {   
+            _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
             date:{type: Date, default:Date.now()} 
-      }, { _id:false}
+      }
       
 )
 
@@ -64,9 +65,11 @@ app.post('/api/exercise/add', (req,res)=>{
  
     var exerciseLog = null;
     ExerciseLog.findById({ _id:req.body.userId }, (err,data)=>{
+      console.log(data)
       if( data == null){
         exerciseLog = new ExerciseLog( 
                       {   _id:req.body.userId,
+                          useer
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
@@ -87,7 +90,15 @@ app.post('/api/exercise/add', (req,res)=>{
                              duration : req.body.duration,
                              date : req.body.date,
                          }
-         data.push(exerciseLog).save( err?err:res.send(data));
+         data.log.push(exerciseLog)
+         data.save((err,data)=>{
+          if(err){
+            return err;
+          }else{
+            console.log(data)
+            res.send(data)
+          }
+        })
       
       }
      
@@ -121,9 +132,7 @@ app.get('/api/exercise/log', (req,res)=>{
         //console.log(data.log.length)
         console.log(data)
          res.send({ _id: data.id , 
-                   log:[ { descriptin: data.log[1].description, 
-                           durarion: data.log[1].duration,
-                           date:data.log[1].date ,
+                   log:[ { descriptin: data.log
                          }]})        
       }
   });
