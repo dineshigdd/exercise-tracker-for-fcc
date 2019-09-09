@@ -19,11 +19,11 @@ var User = mongoose.model('User',userSchema);
 var log = new Schema(
 { 
   type:{
-            _id:false,
+           
             description:{type: String, required:true},
             duration:{type:Number, required:true},
             date:{type: Date, default:Date.now()} 
-      }
+      },   _id:false
 })
 
 var exerciseLogSchema = new Schema(
