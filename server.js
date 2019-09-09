@@ -20,6 +20,7 @@ var exerciseLogSchema = new Schema(
   {
     _id:{ type:String, required:true },
     log:{ type:[{
+            _id : false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
             date:{type: Date, default:Date.now()} 
@@ -116,8 +117,10 @@ app.get('/api/exercise/log', (req,res)=>{
         //console.log(data.log.length)
         console.log(data)
          res.send({ _id: data.id , 
-                   log:[ { descriptin: data.log[0].description, 
-                           date:data.log[0].date ,}]})        
+                   log:[ { descriptin: data.log[1].description, 
+                           durarion: data.log[1].duration,
+                           date:data.log[1].date ,
+                         }]})        
       }
   });
 })
