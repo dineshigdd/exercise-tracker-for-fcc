@@ -55,16 +55,16 @@ app.post('/api/exercise/new-user',(req,res)=>{
 });
 
 app.post('/api/exercise/add', (req,res)=>{
-    
-  User.find({ _id:req.body.userId },  (err,data) =>{
+  
+  User.findById({ _id:req.body.userId },  (err,data) =>{
  
    
     var exerciseLog = new ExerciseLog( 
-                      {  _id:req.body.userId,
-                      log:[{  
-                         description : req.body.description,
-                         duration : req.body.duration,
-                         date : req.body.date,
+                      {  _id:data._id,
+                          log:[{  
+                             description : req.body.description,
+                             duration : req.body.duration,
+                             date : req.body.date,
                          }]});
    
    
@@ -74,6 +74,7 @@ app.post('/api/exercise/add', (req,res)=>{
       if(err){
         return err;
       }else{
+        console.log(data)
         res.send(data)
       }
     })
