@@ -69,7 +69,6 @@ app.post('/api/exercise/add', (req,res)=>{
       if( data == null){
         exerciseLog = new ExerciseLog( 
                       {   _id:req.body.userId,
-                          useer
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
