@@ -18,7 +18,7 @@ var User = mongoose.model('User',userSchema);
 
 var exerciseLogSchema = new Schema(
   {
-    _id:{type:String, required:true },
+    _id:{ type:String, required:true },
     log:{ type:[{
             description:{type: String, required:true},
             duration:{type:Number, required:true},
@@ -98,16 +98,16 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
+  ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
   
       if(err){
         return err
       } else{
         //console.log(data.log.length)
         console.log(data)
-        res.json({ data
+//         res.json({ data
                         
-                 })
+//                  })
         
       }
   });
