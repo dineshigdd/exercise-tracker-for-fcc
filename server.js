@@ -17,14 +17,13 @@ var userSchema = new Schema({
 var User = mongoose.model('User',userSchema);
 
 var log = new Schema(
-{ 
-  type:{
-           
+      {   
             description:{type: String, required:true},
             duration:{type:Number, required:true},
             date:{type: Date, default:Date.now()} 
-      },   _id:false
-})
+      }, { _id:false}
+      
+)
 
 var exerciseLogSchema = new Schema(
   {
@@ -67,7 +66,7 @@ app.post('/api/exercise/add', (req,res)=>{
     ExerciseLog.findById({ _id:req.body.userId }, (err,data)=>{
       if( data == null){
         exerciseLog = new ExerciseLog( 
-                      {   _id:data._id,
+                      {   _id:req.body.userId,
                           log:[{  
                             
                              description : req.body.description,
