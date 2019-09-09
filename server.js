@@ -68,23 +68,11 @@ app.post('/api/exercise/add', (req,res)=>{
         exerciseLog = new ExerciseLog( 
                       {   _id:req.body.userId,
                           log:[{  
-                            
                              description : req.body.description,
                              duration : req.body.duration,
                              date : req.body.date,
                          }]});
-        
-      }else{
-         exerciseLog =   {  
-                             
-                             description : req.body.description,
-                             duration : req.body.duration,
-                             date : req.body.date,
-                         }
-         data.log.push(exerciseLog)
-      }
-      
-      data.save((err,data)=>{
+        exerciseLog.save((err,data)=>{
           if(err){
             return err;
           }else{
@@ -92,6 +80,17 @@ app.post('/api/exercise/add', (req,res)=>{
             res.send(data)
           }
         })
+      }else{
+         exerciseLog =   {  
+                             
+                             description : req.body.description,
+                             duration : req.body.duration,
+                             date : req.body.date,
+                         }
+         data.push(exerciseLog).save( err?err:res.send(data));
+      
+      }
+     
     })  
   
   });
