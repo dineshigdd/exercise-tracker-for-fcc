@@ -18,7 +18,7 @@ var User = mongoose.model('User',userSchema);
 
 var exerciseLogSchema = new Schema(
   {
-    userId:{type:String, required:true },
+    _id:{type:String, required:true },
     log:{ type:[{
             description:{type: String, required:true},
             duration:{type:Number, required:true},
@@ -60,7 +60,7 @@ app.post('/api/exercise/add', (req,res)=>{
  
    
     var exerciseLog = new ExerciseLog( 
-                      {  userId:req.body.userId,
+                      {  _id:req.body.userId,
                       log:[{  
                          description : req.body.description,
                          duration : req.body.duration,
@@ -98,16 +98,16 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
+  ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
   
       if(err){
         return err
       } else{
         //console.log(data.log.length)
-        console.log(data.userId)
-        res.json({ userId: data[0].userId,
-                   log: data[0].log[0].date
-                 })
+        console.log(data)
+        // res.json({ userId: data[0].userId,
+        //            log: data[0].log[0].date
+        //          })
         
       }
   });
