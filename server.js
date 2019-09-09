@@ -68,14 +68,7 @@ app.post('/api/exercise/add', (req,res)=>{
                              duration : req.body.duration,
                              date : req.body.date,
                          }]});
-        exerciseLog.save((err,data)=>{
-      if(err){
-        return err;
-      }else{
-        console.log(data)
-        res.send(data)
-      }
-    })
+        
       }else{
          exerciseLog =   {  
                              description : req.body.description,
@@ -84,14 +77,16 @@ app.post('/api/exercise/add', (req,res)=>{
                          }
          data.log.push(exerciseLog)
       }
-    })
-    
-    
-   
-   
-    //data.log.push(exerciseLog)
-    
-    
+      
+      data.save((err,data)=>{
+          if(err){
+            return err;
+          }else{
+            console.log(data)
+            res.send(data)
+          }
+        })
+    })  
   
   });
 
