@@ -130,9 +130,9 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         //console.log(data.log.length)
         console.log(data)
-         res.send({ _id: data.id , 
-                   log:[ { descriptin: data.log
-                         }]})        
+         res.send({ _id: data._id ,
+                   count:data.log.length,
+                   log:data.log})        
       }
   });
 })
