@@ -18,7 +18,7 @@ var User = mongoose.model('User',userSchema);
 
 var exerciseLogSchema = new Schema(
   {
-    _id:{type:String, required:true },
+    userId:{type:String, required:true },
     log:{ type:[{
             description:{type: String, required:true},
             duration:{type:Number, required:true},
@@ -56,11 +56,11 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 app.post('/api/exercise/add', (req,res)=>{
     
-  User.findById({ _id:req.body.userId },  (err,data) =>{
+  User.find({ _id:req.body.userId },  (err,data) =>{
  
    
     var exerciseLog = new ExerciseLog( 
-                      {  _id:req.body.userId,
+                      {  userId:req.body.userId,
                       log:[{  
                          description : req.body.description,
                          duration : req.body.duration,
@@ -98,7 +98,7 @@ app.get('/api/exercise/users', (req,res)=>{
 app.get('/api/exercise/log', (req,res)=>{
  
   console.log(req.query.userId)
-  ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
+  ExerciseLog.find({ userId: req.query.userId },( err,data) =>{
   
       if(err){
         return err
@@ -106,9 +106,9 @@ app.get('/api/exercise/log', (req,res)=>{
         //console.log(data.log.length)
         console.log(data)
         res.json({ userId: data[0].userId,
-                   log: { description: data[0].description,
-                          duration: data[0].duration,
-                          date:data[0].log[0].date 
+                   log: { description: data[0].log.description,
+                          duration: data[0].log.duration,
+                          date:data[0].log.date 
                         }
                  })
         
