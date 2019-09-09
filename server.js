@@ -58,21 +58,17 @@ app.post('/api/exercise/add', (req,res)=>{
   
   User.findById({ _id:req.body.userId },  (err,data) =>{
  
-    ExerciseLog.findById({ _id:req.body.userId }(err,data)){
-      
-    }
-    var exerciseLog = new ExerciseLog( 
+    var exerciseLog = null;
+    ExerciseLog.findById({ _id:req.body.userId }, (err,data)=>{
+      if( data == null){
+        exerciseLog = new ExerciseLog( 
                       {  _id:data._id,
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
                              date : req.body.date,
                          }]});
-   
-   
-    //data.log.push(exerciseLog)
-    
-    exerciseLog.save((err,data)=>{
+        exerciseLog.save((err,data)=>{
       if(err){
         return err;
       }else{
@@ -80,6 +76,22 @@ app.post('/api/exercise/add', (req,res)=>{
         res.send(data)
       }
     })
+      }else{
+         exerciseLog =   {  
+                             description : req.body.description,
+                             duration : req.body.duration,
+                             date : req.body.date,
+                         }
+         data.log.push(exerciseLog)
+      }
+    })
+    
+    
+   
+   
+    //data.log.push(exerciseLog)
+    
+    
   
   });
 
