@@ -21,7 +21,7 @@ var log = new Schema(
             _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
-            date:{type: Date, default:Date.now()} 
+            date:{type: Date(, default:Date.now()} 
       }
       
 )
@@ -121,7 +121,7 @@ app.get('/api/exercise/users', (req,res)=>{
 })
 
 app.get('/api/exercise/log', (req,res)=>{
-  console.log("from:"+ req.query.from)
+ 
   console.log(req.query.userId)
   ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
   
