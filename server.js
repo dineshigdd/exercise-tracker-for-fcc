@@ -116,7 +116,7 @@ app.get('/api/exercise/users', (req,res)=>{
       if(err){
         return err
       } else{
-        if( req.body.first)
+        
         res.json(data);
       }
   });
@@ -131,7 +131,12 @@ app.get('/api/exercise/log', (req,res)=>{
         return err
       } else{
         //console.log(data.log.length)
-        console.log(data)
+        if ( req.body.from != undefined )
+        console.log("yes undefined")
+        else{
+            console.log(req.body.from )
+        }
+       
          res.send({ _id: data._id ,
                    count:data.log.length,
                    log:data.log})        
