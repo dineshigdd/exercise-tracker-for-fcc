@@ -136,7 +136,9 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
-          /ExerciseLog.find({ date: { $gte: req.query.from } , date :{ $lte: req.query.to }})
+           ExerciseLog.find({ data: { $eq: req.query.from } } ,( err, data) => {
+             err?err: res.send("query data" + "<br />"+ data);
+           })
         }
        
               
