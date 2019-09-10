@@ -136,7 +136,9 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
-           ExerciseLog.find({ data: { $eq: req.query.from } } ,( err, data) => {
+          console.log(data)
+          //res.send(data.log)
+           data.find({log :['date'],{ &eq:'1988-10-14'} } ,( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
         }
