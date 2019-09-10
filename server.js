@@ -21,7 +21,7 @@ var log = new Schema(
             _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
-            date:{type: Date, default:Date.now()} 
+            date:{type: String, default:Date.now().toString()} 
       }
       
 )
@@ -66,7 +66,7 @@ app.post('/api/exercise/add', (req,res)=>{
     var exerciseLog = null;
     ExerciseLog.findById({ _id:req.body.userId }, (err,data)=>{
       console.log("My date:" +req.body.date);
-      var date = req.body.date.split('T')[0].toString();
+      
 
       if( data == null){
         exerciseLog = new ExerciseLog( 
@@ -74,7 +74,7 @@ app.post('/api/exercise/add', (req,res)=>{
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
-                             date : date
+                             date : req.body.date
                          }]});
         exerciseLog.save((err,data)=>{
           if(err){
@@ -89,7 +89,7 @@ app.post('/api/exercise/add', (req,res)=>{
                              
                              description : req.body.description,
                              duration : req.body.duration,
-                             date : date,
+                             date : req.body.date,
                          }
          data.log.push(exerciseLog)
          data.save((err,data)=>{
@@ -116,7 +116,7 @@ app.get('/api/exercise/users', (req,res)=>{
       if(err){
         return err
       } else{
-        
+        if( req.body.first)
         res.json(data);
       }
   });
