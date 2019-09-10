@@ -124,22 +124,22 @@ app.get('/api/exercise/users', (req,res)=>{
 
 app.get('/api/exercise/log', (req,res)=>{
  
-  console.log(req.query.userId)
+  
   ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
   
       if(err){
         return err
       } else{
-        //console.log(data.log.length)
-        if ( req.query.from == undefined )
-        console.log("yes undefined")
-        else{
-            ExerciseLog.find({ date: { $gte: req.query.from } , date :{ $lte: req.query.to }})
+        console.log(data.log.length)
+        if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
+            res.send({ _id: data._id ,
+                        count:data.log.length,
+                        log:data.log})   
+        }else{
+          /ExerciseLog.find({ date: { $gte: req.query.from } , date :{ $lte: req.query.to }})
         }
        
-         res.send({ _id: data._id ,
-                    count:data.log.length,
-                    log:data.log})        
+              
       }
   });
 })
