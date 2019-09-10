@@ -134,7 +134,7 @@ app.get('/api/exercise/log', (req,res)=>{
         if ( req.query.from == undefined )
         console.log("yes undefined")
         else{
-            ExerciseLog.find({ date: { $gt: req.query.from } })
+            ExerciseLog.find({ date: { $gte: req.query.from } , date :{ $lte: req.query.to }})
         }
        
          res.send({ _id: data._id ,
