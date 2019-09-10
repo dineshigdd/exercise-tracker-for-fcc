@@ -26,10 +26,11 @@ var Log = new Schema(
       
 )
 
+
 var exerciseLogSchema = new Schema(
   {
     _id:{ type:String, required:true },
-    log: [ log ]
+    log: [ Log ]
   })
 
 var ExerciseLog = mongoose.model('ExerciseLog',exerciseLogSchema);
@@ -138,8 +139,7 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
         
           //res.send(data.log)ata.log
-           ExerciseLog.find({ _id: req.query.userId,
-                           "log.date": '1998-7-13' },( err, data) => {
+           Log.find({"date": '1998-7-13' },( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);ExerciseLog
            })
         }
