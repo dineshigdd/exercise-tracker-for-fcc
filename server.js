@@ -21,7 +21,7 @@ var log = new Schema(
             _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
-            date:{type: Date(, default:Date.now()} 
+            date:{type: Date, default:Date.now()} 
       }
       
 )
@@ -72,7 +72,7 @@ app.post('/api/exercise/add', (req,res)=>{
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
-                             date : req.body.date,
+                             date : req.body.date.split(' ')[0],
                          }]});
         exerciseLog.save((err,data)=>{
           if(err){
