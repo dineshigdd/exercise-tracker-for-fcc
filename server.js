@@ -138,7 +138,7 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
           console.log(data.log[0].date)
           //res.send(data.log)ata.log
-           data.find({date : data.log[0].date} ,( err, data) => {
+           ExerciseLog.find({ log: { date: req.query.from }}).exec(( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
         }
