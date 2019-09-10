@@ -131,15 +131,15 @@ app.get('/api/exercise/log', (req,res)=>{
         return err
       } else{
         //console.log(data.log.length)
-        if ( req.body.from != undefined )
+        if ( req.query.from == undefined )
         console.log("yes undefined")
         else{
-            console.log(req.body.from )
+            req.query.from )
         }
        
          res.send({ _id: data._id ,
-                   count:data.log.length,
-                   log:data.log})        
+                    count:data.log.length,
+                    log:data.log})        
       }
   });
 })
