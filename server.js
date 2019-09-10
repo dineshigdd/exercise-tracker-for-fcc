@@ -16,7 +16,7 @@ var userSchema = new Schema({
        
 var User = mongoose.model('User',userSchema);
 
-var log = new Schema(
+var Log = new Schema(
       {   
             _id:false,
             description:{type: String, required:true},
@@ -139,7 +139,7 @@ app.get('/api/exercise/log', (req,res)=>{
         
           //res.send(data.log)ata.log
            ExerciseLog.find({ _id: req.query.userId,
-                           "log.date": req.query.from.toString() },( err, data) => {
+                           "log.date": '1998-7-13' },( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);ExerciseLog
            })
         }
