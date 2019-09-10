@@ -72,7 +72,8 @@ app.post('/api/exercise/add', (req,res)=>{
                           log:[{  
                              description : req.body.description,
                              duration : req.body.duration,
-                             date : req.body.date.split(' ')[0],
+                             date : ne(req.body.date
+.split('T')[0]),
                          }]});
         exerciseLog.save((err,data)=>{
           if(err){
