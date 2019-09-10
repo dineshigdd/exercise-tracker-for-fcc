@@ -139,8 +139,8 @@ app.get('/api/exercise/log', (req,res)=>{
         
           //res.send(data.log)ata.log
            ExerciseLog.find({ _id: req.query.userId,
-                            log: { $elementMatch : { date: req.query.from }}})(( err, data) => {
-             err?err: console.log(data)//res.send("query data" + "<br />"+ data);
+                           "log.date": req.query.from.toString() },( err, data) => {
+             err?err: res.send("query data" + "<br />"+ data);ExerciseLog
            })
         }
        
