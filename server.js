@@ -136,9 +136,9 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
-          console.log(data.log[0].date)
+        
           //res.send(data.log)ata.log
-           ExerciseLog.find({  date: req.query.from }).exec(( err, data) => {
+           ExerciseLog.find({ _id: req.query.userId }{ date: req.query.}).exec(( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
         }
@@ -147,6 +147,8 @@ app.get('/api/exercise/log', (req,res)=>{
       }
   });
 })
+
+
 
 app.get('/api/exercise/user-remove', (req,res) => {
   User.remove({}, (err,data)=>{
