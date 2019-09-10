@@ -65,8 +65,9 @@ app.post('/api/exercise/add', (req,res)=>{
  
     var exerciseLog = null;
     ExerciseLog.findById({ _id:req.body.userId }, (err,data)=>{
-     // console.log(data);
-      var date = req.body.date.split('T')[0];
+      console.log("My date:" +req.body.date);
+      var date = req.body.date.split('T')[0].toString();
+
       if( data == null){
         exerciseLog = new ExerciseLog( 
                       {   _id:req.body.userId,
@@ -74,7 +75,6 @@ app.post('/api/exercise/add', (req,res)=>{
                              description : req.body.description,
                              duration : req.body.duration,
                              date : date
-
                          }]});
         exerciseLog.save((err,data)=>{
           if(err){
