@@ -139,7 +139,7 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
         
           //res.send(data.log)ata.log
-           ExerciseLog.find({"log.date": '1998-7-13' },( err, data) => {
+           ExerciseLog.find({"log.date": '1978-10-14',( err, data) => {
              err?err: res.send("query data" + "<br />"+ data);ExerciseLog
            })
         }
