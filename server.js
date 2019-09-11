@@ -140,19 +140,19 @@ app.get('/api/exercise/log', (req,res)=>{
         
         // console.log(new Date(req.query.from).toISOString())
           
-          ExerciseLog.find({ _id: req.query.userId }, { "log.date":  new Date(req.query.from)}
-                           , (err, data) => {
-             if(err) {
-               return err
-             }else{
-               res.send("query data" + "<br />"+ { $unwind: "$date");
-             }
-           })
+          // ExerciseLog.find({ _id: req.query.userId }, { "log.date":  new Date(req.query.from)}
+          //                  , (err, data) => {
+          //    if(err) {
+          //      return err
+          //    }else{
+          //      res.send("query data" + "<br />"+ { $unwind: "$date");
+          //    }
+          //  })
           
-           // ExerciseLog.findById({ _id: req.query.userId },
-           //                  { "log":{  "$elemMatch" : { "date" : new Date(req.query.from).toISOString()}}}).exec( (err, data) => {
-           //   err?err: res.send("query data" + "<br />"+ data);
-           // })
+           ExerciseLog.findById({ _id: req.query.userId },
+                            { "log":{  "$elemMatch" : { "date" : new Date(req.query.from).toISOString()}}}).exec( (err, data) => {
+             err?err: res.send("query data" + "<br />"+ data);
+           })
         }       
               //db.inventory.aggregate( [ { $unwind : "$sizes" } ] )
       }
