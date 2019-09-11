@@ -138,8 +138,8 @@ app.get('/api/exercise/log', (req,res)=>{
                         log:data.log})   
         }else{
         
-         console.log(new Date(req.query.from))
-           ExerciseLog.find({ _id: req.query.userId },{ log:{  $elemMatch: { date :{ "$gte" : new Date(req.query.from)} }}}).limit(3).exec( (err, data) => {
+         //console.log(new Date(req.query.from))
+           ExerciseLog.find({ _id: req.query.userId },{ log:{  $elemMatch: { date :{ "$gt" : { "$date" : req.query.from }}}}}).limit(3).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
         }       
