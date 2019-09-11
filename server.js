@@ -141,11 +141,12 @@ app.get('/api/exercise/log', (req,res)=>{
         // console.log(new Date(req.query.from).toISOString())
           
           ExerciseLog.find({ _id: req.query.userId }, { "log.date":  new Date(req.query.from)}
-                           ).exec( (err, data) => {
+                           , (err, data) => {
              if(err) {
-               return 
+               return err
              }else{
-               err: res.send("query data" + "<br />"+ data);
+               res.send("query data" + "<br />"+ { $unwind: "$date");
+             }
            })
           
            // ExerciseLog.findById({ _id: req.query.userId },
@@ -153,7 +154,7 @@ app.get('/api/exercise/log', (req,res)=>{
            //   err?err: res.send("query data" + "<br />"+ data);
            // })
         }       
-              db.inventory.aggregate( [ { $unwind : "$sizes" } ] )
+              //db.inventory.aggregate( [ { $unwind : "$sizes" } ] )
       }
   });
 })
