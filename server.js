@@ -139,10 +139,16 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
         
         // console.log(new Date(req.query.from).toISOString())
-           ExerciseLog.find({ _id: req.query.userId },
-                            { "log.date" }).exec( (err, data) => {
+          
+          ExerciseLog.findById({ _id: req.query.userId }, {}
+                           ).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
+          
+           // ExerciseLog.findById({ _id: req.query.userId },
+           //                  { "log":{  "$elemMatch" : { "date" : new Date(req.query.from).toISOString()}}}).exec( (err, data) => {
+           //   err?err: res.send("query data" + "<br />"+ data);
+           // })
         }       
               
       }
