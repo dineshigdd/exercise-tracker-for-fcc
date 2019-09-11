@@ -21,7 +21,7 @@ var Log = new Schema(
             _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
-            date:{type: Date, default:Date.now()} 
+            date:{type: String, default:Date.now()} 
       }
       
 )
@@ -138,9 +138,9 @@ app.get('/api/exercise/log', (req,res)=>{
                         log:data.log})   
         }else{
         
-         //console.log(new Date(req.query.from))
+        // console.log(new Date(req.query.from).toISOString())
            ExerciseLog.find({ _id: req.query.userId },
-                            { "log":{  "$elemMatch" : { "date" : new Date(req.query.from)}}}).limit(2).exec( (err, data) => {
+                            { "log.date" }).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
         }       
