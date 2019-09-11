@@ -140,7 +140,7 @@ app.get('/api/exercise/log', (req,res)=>{
         
         // console.log(new Date(req.query.from).toISOString())
           
-          ExerciseLog.find({ _id: req.query.userId }, { "log.date": req.query.from }}
+          ExerciseLog.find({ _id: req.query.userId }, { "log": { $elemMatch : { "$toDate" : new Date(req.query.from).toIsoString()}}}
                            ).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
