@@ -21,7 +21,7 @@ var Log = new Schema(
             _id:false,
             description:{type: String, required:true},
             duration:{type:Number, required:true},
-            date:{type: String, default:Date.now()} 
+            date:{type: Date, default:Date.now()} 
       }
       
 )
@@ -140,7 +140,7 @@ app.get('/api/exercise/log', (req,res)=>{
         
         // console.log(new Date(req.query.from).toISOString())
           
-          ExerciseLog.findById({ _id: req.query.userId }, {}
+          ExerciseLog.findById({ _id: req.query.userId }, { "log.date": { "$gt" ISODate(req.query.from) }}
                            ).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
