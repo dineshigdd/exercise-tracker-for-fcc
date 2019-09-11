@@ -138,7 +138,7 @@ app.get('/api/exercise/log', (req,res)=>{
                         log:data.log})   
         }else{
         
-           res.send( { "log" : { "$elemMatch } })
+           res.send( ExerciseLog.f)
         }       
              
       }
