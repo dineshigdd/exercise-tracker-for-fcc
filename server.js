@@ -140,7 +140,7 @@ app.get('/api/exercise/log', (req,res)=>{
         
         // console.log(new Date(req.query.from).toISOString())
           
-          ExerciseLog.findById({ _id: req.query.userId }, { "log.date": { "$gt" ISODate(req.query.from) }}
+          ExerciseLog.findById({ _id: req.query.userId }, { "log.date": { "$gt" : ["$date",new Date(req.query.from).toISOString()] }}
                            ).exec( (err, data) => {
              err?err: res.send("query data" + "<br />"+ data);
            })
