@@ -146,10 +146,22 @@ app.get('/api/exercise/log', (req,res)=>{
                       $filter: {
                           input: '$log',
                           as: 'item',
-                          cond: {
-                            "$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}] 
+                          cond: { $switch : {
+                            branches:[
+                              {
+                              case: {"$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}]}
+                              then res.send(data)
+                              },
+                               {
+                              case: { $gte: ['$$item.date', req.query.from] } 
+                              },
+                              {
+                              case: { $lte: ['$$item.date', req.query.from] } 
+                              }
+                     
+                          ]}
                             
-                          } "
+                          } 
                     
                     }}
             }}
