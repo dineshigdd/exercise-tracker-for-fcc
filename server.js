@@ -149,7 +149,8 @@ app.get('/api/exercise/log', (req,res)=>{
                           as: 'item',
                           cond: expr2
                      }}
-                } }
+                } },
+                { $limit : 2 }
                 ]).exec((err, qdata)=> {
                   res.send(qdata);
                 })
@@ -165,7 +166,8 @@ app.get('/api/exercise/log', (req,res)=>{
                      }
                     
                   }
-                } }
+                } },
+                 { $limit : 2 }
                 
                 ]).exec((err, qdata)=> {
                   res.send(qdata)
@@ -186,7 +188,7 @@ app.get('/api/exercise/log', (req,res)=>{
                             }
                      }}
                 } },
-                { }
+                { $limit : 2 }
                 ]).exec((err, qdata)=> {
                   res.send(qdata);
                 });
