@@ -164,7 +164,7 @@ app.get('/api/exercise/log', (req,res)=>{
                           cond: expr1
                      }}
                 } }
-                ]).exec((err, qdata)=> {
+                ]).limit(req.query.limit).exec((err, qdata)=> {
                   res.send(qdata);
                 })
             }else{
