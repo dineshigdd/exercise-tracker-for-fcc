@@ -139,35 +139,24 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
           
         
-                console.log(ExerciseLog.aggregate([
+                ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
                     log: { 
                       $filter: {
                           input: '$log',
                           as: 'item',
-                          cond: { $switch : {
-                            branches:[
-                              {
-                              case: {"$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]}
-                              // then:res.send(data)
-                              },
-                               {
-                              case: { $gt: ['$$item.date', req.query.from] }
-                              // then:res.send(data)
-                              },
-                              {
-                              case: { $lt: ['$$item.date', req.query.from] } 
-                              // then:res.send(data)
-                              }
-                     
-                          ]}
-                            
-                          } 
-                    
-                    }}
-            }}
-        ]))
+                          cond: { 
+                             "$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]
+                            },
+                          cond:{
+                               $gt: ['$$item.date', req.query.from] 
+                            }
+                     }}
+                } }
+        ]).exec((err, qdata)=> {
+                  res.send(qdata);
+                });
 //             ExerciseLog.aggregate([
             
 //               {"$match":{ "_id" : req.query.userId }},
