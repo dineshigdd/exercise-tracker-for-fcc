@@ -127,7 +127,8 @@ app.get('/api/exercise/log', (req,res)=>{
  
   
   ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
-  
+  var expr1 = { $gt: ['$$item.date', req.query.from] } ;
+  var expr2 = { $lt:['$$item.date', req.query.to]};
       if(err){
         return err
       } else{
@@ -137,7 +138,10 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
-          
+            if(  req.query.from == undefined && req.query.to !== undefined){
+              
+              expr1 = 0;
+            }
         
                 ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
@@ -147,10 +151,7 @@ app.get('/api/exercise/log', (req,res)=>{
                           input: '$log',
                           as: 'item',
                           cond: { 
-                             "$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]
-                            },
-                          cond:{
-                               $gt: ['$$item.date', req.query.from] 
+                             "$and" : [ expr1,expr2]
                             }
                      }}
                 } }
