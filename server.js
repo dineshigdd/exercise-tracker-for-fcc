@@ -156,15 +156,18 @@ app.get('/api/exercise/log', (req,res)=>{
             }else if(req.query.from !== undefined && req.query.to == undefined){
                ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
+                  { $limit : 2 },
                   { $project: {
                     log: { 
                       $filter: {
                           input: '$log',
                           as: 'item',
                           cond: expr1
-                     }}
+                     }
+                    
+                  }
                 } }
-                ]).limit(req.query.limit).exec((err, qdata)=> {
+                ]).exec((err, qdata)=> {
                   res.send(qdata);
                 })
             }else{
