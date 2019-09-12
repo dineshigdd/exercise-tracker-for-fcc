@@ -127,9 +127,8 @@ app.get('/api/exercise/log', (req,res)=>{
  
   
   ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
-  var expr='';
   var expr1 = { $gt: ['$$item.date', req.query.from] } ;
-  var expr2 = { $lt:['$$item.date', req.query.to]};
+  var expr2 = { $lt:['$$item.date', req.query.to]} ;
       if(err){
         return err
       } else{
@@ -141,16 +140,38 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
-              expr1 = 0;
+              ExerciseLog.aggregate([
+                  { $match: {_id: req.query.userId }},
+                  { $project: {
+                    log: { 
+                      $filter: {
+                          input: '$log',
+                          as: 'item',
+                          cond: expr2
+                     }}
+                } }
+                ]).exec((err, qdata)=> {
+                  res.send(qdata);
+                })
             }else if(req.query.from !== undefined && req.query.to == undefined){
-              
+               ExerciseLog.aggregate([
+                  { $match: {_id: req.query.userId }},
+                  { $project: {
+                    log: { 
+                      $filter: {
+                          input: '$log',
+                          as: 'item',
+                          cond: expr1
+                     }}
+                } }
+                ]).exec((err, qdata)=> {
+                  res.send(qdata);
+                })
             }else{
-               expr = "'$and' :" + [ expr1,expr2];
-            }
           
           
         
-              const fx =(expara) =>  ExerciseLog.aggregate([
+               ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
                     log: { 
@@ -158,22 +179,15 @@ app.get('/api/exercise/log', (req,res)=>{
                           input: '$log',
                           as: 'item',
                           cond: { 
-                             expr
+                             "$and" : [ expr1,expr2]
                             }
                      }}
                 } }
                 ]).exec((err, qdata)=> {
                   res.send(qdata);
                 });
-//             ExerciseLog.aggregate([
-            
-//               {"$match":{ "_id" : req.query.userId }},
-//               { "$unwind" : "$data.log" },
-//               { "$match" : { "log.date" :  req.query.from }},
-//               { "$group:" : { "_id" : "$_id", log : { $push: "$log.date" }}}
+            }
 
-
-//           ]).exec( (err,data)=> res.send(data))
 
         }       
              
