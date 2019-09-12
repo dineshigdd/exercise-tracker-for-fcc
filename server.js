@@ -138,7 +138,15 @@ app.get('/api/exercise/log', (req,res)=>{
                         log:data.log})   
         }else{
         
-           res.send( ExerciseLog.f)
+             (ExerciseLog.aggregate([
+               { $match: { _id: req.query.userId }}
+               
+             ]) ,(err, data) =>{
+               
+               
+             });
+
+
         }       
              
       }
