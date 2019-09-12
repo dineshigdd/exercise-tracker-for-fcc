@@ -139,7 +139,7 @@ app.get('/api/exercise/log', (req,res)=>{
         }else{
           
         
-                ExerciseLog.aggregate([
+                console.log(ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
                     log: { 
@@ -167,7 +167,7 @@ app.get('/api/exercise/log', (req,res)=>{
                     
                     }}
             }}
-        ]).exec((err,edata) => res.send(edata))
+        ]))
 //             ExerciseLog.aggregate([
             
 //               {"$match":{ "_id" : req.query.userId }},
