@@ -138,14 +138,10 @@ app.get('/api/exercise/log', (req,res)=>{
                         log:data.log})   
         }else{
         
-             (ExerciseLog.aggregate([
-               { $match: { _id: req.query.userId }}
+             ExerciseLog.aggregate([
+               { $match: [{ _id: req.query.userId } , { "log.date": req.query.from}]}
                
-             ]) ,(err, data) =>{
-               
-               
-             });
-
+             ]).exec( (err,data)=> console.log(data))
 
         }       
              
