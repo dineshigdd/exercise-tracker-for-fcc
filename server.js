@@ -131,17 +131,22 @@ app.get('/api/exercise/log', (req,res)=>{
       if(err){
         return err
       } else{
-        console.log(data.log.length)
+        
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
-            res.send({ _id: data._id ,
-                        count:data.log.length,
-                        log:data.log})   
+            // res.send({ _id: data._id ,
+            //             count:data.log.length,
+            //             log:data.log})   
         }else{
                 
-//              ExerciseLog.aggregate([
-//                { $match: [{ _id: req.query.userId } , { "log.date": req.query.from}]}
-               
-//              ]).exec( (err,data)=> console.log(data))
+            ExerciseLog.aggregate([
+            
+              {"$match":{ "_id" : req.query.userId }},
+              // { "$unwind" : "$data.log" },
+              // { "$match" : { "log.date" : { "$gt" : req.query.from }}},
+              // { "$group:" : { "_id" : "$_id", log : { $push: "$list.date" }}}
+
+
+          ]).exec( (err,data)=> res.send(data))
 
         }       
              
