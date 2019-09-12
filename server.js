@@ -137,6 +137,8 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
+          
+        
                 ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
@@ -144,7 +146,9 @@ app.get('/api/exercise/log', (req,res)=>{
                     input: '$log',
                     as: 'item',
                     cond: {
-                      "$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]
+                      "$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}]
+                      }
+                    
                     }}
             }}
         ]).exec( (err,data)=> res.send(data))
