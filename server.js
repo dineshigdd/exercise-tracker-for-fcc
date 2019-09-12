@@ -137,11 +137,11 @@ app.get('/api/exercise/log', (req,res)=>{
                         count:data.log.length,
                         log:data.log})   
         }else{
-        
-             ExerciseLog.aggregate([
-               { $match: [{ _id: req.query.userId } , { "log.date": req.query.from}]}
+                
+//              ExerciseLog.aggregate([
+//                { $match: [{ _id: req.query.userId } , { "log.date": req.query.from}]}
                
-             ]).exec( (err,data)=> console.log(data))
+//              ]).exec( (err,data)=> console.log(data))
 
         }       
              
