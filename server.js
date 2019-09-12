@@ -133,9 +133,9 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
-            // res.send({ _id: data._id ,
-            //             count:data.log.length,
-            //             log:data.log})   
+            res.send({ _id: data._id ,
+                        count:data.log.length,
+                        log:data.log})   
         }else{
                 ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
@@ -143,8 +143,9 @@ app.get('/api/exercise/log', (req,res)=>{
                     log: {$filter: {
                     input: '$log',
                     as: 'item',
-                    cond: {$gte: ['$$item.date', req.query.from]}
-              }}
+                    cond: {
+                      "$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]
+                    }}
             }}
         ]).exec( (err,data)=> res.send(data))
 //             ExerciseLog.aggregate([
