@@ -137,16 +137,25 @@ app.get('/api/exercise/log', (req,res)=>{
             //             count:data.log.length,
             //             log:data.log})   
         }else{
-                
-            ExerciseLog.aggregate([
+                ExerciseLog.aggregate([
+                  { $match: {_id: req.query.userId }},
+                  { $project: {
+                    log: {$filter: {
+                    input: '$log',
+                    as: 'item',
+                    cond: {$gte: ['$$item.date', req.query.from]}
+              }}
+            }}
+        ]).exec( (err,data)=> res.send(data))
+//             ExerciseLog.aggregate([
             
-              {"$match":{ "_id" : req.query.userId }},
-              // { "$unwind" : "$data.log" },
-              // { "$match" : { "log.date" : { "$gt" : req.query.from }}},
-              // { "$group:" : { "_id" : "$_id", log : { $push: "$list.date" }}}
+//               {"$match":{ "_id" : req.query.userId }},
+//               { "$unwind" : "$data.log" },
+//               { "$match" : { "log.date" :  req.query.from }},
+//               { "$group:" : { "_id" : "$_id", log : { $push: "$log.date" }}}
 
 
-          ]).exec( (err,data)=> res.send(data))
+//           ]).exec( (err,data)=> res.send(data))
 
         }       
              
