@@ -142,12 +142,14 @@ app.get('/api/exercise/log', (req,res)=>{
                 ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
-                    log: {$filter: {
-                    input: '$log',
-                    as: 'item',
-                    cond: {
-                      "$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}]
-                      }
+                    log: { 
+                      $filter: {
+                          input: '$log',
+                          as: 'item',
+                          cond: {
+                            "$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}] 
+                            
+                          } "
                     
                     }}
             }}
