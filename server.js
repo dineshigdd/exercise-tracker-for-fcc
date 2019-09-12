@@ -149,14 +149,16 @@ app.get('/api/exercise/log', (req,res)=>{
                           cond: { $switch : {
                             branches:[
                               {
-                              case: {"$and" : [ { $gte: ['$$item.date', req.query.from] } ,{ $lte:['$$item.date', req.query.to]}]}
-                              then res.send(data)
+                              case: {"$and" : [ { $gt: ['$$item.date', req.query.from] } ,{ $lt:['$$item.date', req.query.to]}]}
+                              // then:res.send(data)
                               },
                                {
-                              case: { $gte: ['$$item.date', req.query.from] } 
+                              case: { $gt: ['$$item.date', req.query.from] }
+                              // then:res.send(data)
                               },
                               {
-                              case: { $lte: ['$$item.date', req.query.from] } 
+                              case: { $lt: ['$$item.date', req.query.from] } 
+                              // then:res.send(data)
                               }
                      
                           ]}
@@ -165,7 +167,7 @@ app.get('/api/exercise/log', (req,res)=>{
                     
                     }}
             }}
-        ]).exec( (err,data)=> res.send(data))
+        ]).exec((err,edata) => res.send(edata))
 //             ExerciseLog.aggregate([
             
 //               {"$match":{ "_id" : req.query.userId }},
