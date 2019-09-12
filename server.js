@@ -127,6 +127,7 @@ app.get('/api/exercise/log', (req,res)=>{
  
   
   ExerciseLog.findById({ _id: req.query.userId },( err,data) =>{
+  var expr='';
   var expr1 = { $gt: ['$$item.date', req.query.from] } ;
   var expr2 = { $lt:['$$item.date', req.query.to]};
       if(err){
@@ -141,9 +142,15 @@ app.get('/api/exercise/log', (req,res)=>{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
               expr1 = 0;
+            }else if(req.query.from !== undefined && req.query.to == undefined){
+              
+            }else{
+               expr = "'$and' :" + [ expr1,expr2];
             }
+          
+          
         
-                ExerciseLog.aggregate([
+              const fx =(expara) =>  ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
                   { $project: {
                     log: { 
@@ -151,11 +158,11 @@ app.get('/api/exercise/log', (req,res)=>{
                           input: '$log',
                           as: 'item',
                           cond: { 
-                             "$and" : [ expr1,expr2]
+                             expr
                             }
                      }}
                 } }
-        ]).exec((err, qdata)=> {
+                ]).exec((err, qdata)=> {
                   res.send(qdata);
                 });
 //             ExerciseLog.aggregate([
