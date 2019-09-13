@@ -132,13 +132,13 @@ app.get('/api/exercise/log', (req,res)=>{
       if(err){
         return err
       } else{
-        console.log(data)
+        console.log(data.log.slice(0,2))
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
             // res.send({ _id: data._id ,
             //             count:data.log.length,
             //             log:data.log}) 
-            console.log(data[0])
-            res.send({ _id: data._id ,count:data.log.length, log:data.log.slice(0,req.query.limit)});
+            res.json({log:data.log.slice(0, parseInt(req.query.limit,10))});
+            //res.json({ _id: data._id ,count:data.log.length, log:data.log.slice(0, parseInt(req.query.limit,10))});
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
