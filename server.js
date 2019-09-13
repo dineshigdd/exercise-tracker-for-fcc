@@ -162,12 +162,12 @@ app.get('/api/exercise/log', (req,res)=>{
                       $filter: {
                           input: '$log',
                           as: 'item',
-                          cond: expr1
+                          cond: { $gt: ['$$item.date', req.query.from] } 
                      }
                     
                   }
                 } },
-                 { $limit : 2 }
+                 { $limit : 1 }
                 
                 ]).exec((err, qdata)=> {
                   res.send(qdata)
