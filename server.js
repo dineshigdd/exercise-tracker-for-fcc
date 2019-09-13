@@ -167,12 +167,12 @@ app.get('/api/exercise/log', (req,res)=>{
                     
                   }
                 } },
-                 { $limit : 1 }
                 
-                ]).exec((err, qdata)=> {
-                  res.send(qdata)
-                })
-            }else{
+                
+                ]).limit(1).exec((err,data)=>{
+                 err?err:res.send(data)
+               })
+             }else{
           
           
         
