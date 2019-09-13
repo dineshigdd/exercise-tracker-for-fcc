@@ -164,14 +164,16 @@ app.get('/api/exercise/log', (req,res)=>{
                           input: '$log',
                           as: 'item',
                           cond: { $gt: ['$$item.date', new Date(req.query.from)]} 
-                     },
-                     { $limit : 2}
+                     }                    
+                    
+                     
                   }
+                  
                 } },
                 
                 
                 ]).exec((err,data)=>{
-                 err?err:res.send(data)
+                 err?err:res.send(data[0].lo)
                })
              }else{   
         
