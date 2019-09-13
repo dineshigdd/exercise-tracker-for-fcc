@@ -165,7 +165,7 @@ app.get('/api/exercise/log', (req,res)=>{
                           as: 'item',
                           cond: { $gt: ['$$item.date', new Date(req.query.from)]} 
                      },
-                     { $limit
+                     { $limit : 2}
                   }
                 } },
                 
