@@ -156,7 +156,8 @@ app.get('/api/exercise/log', (req,res)=>{
                 })
             }else if(req.query.from !== undefined && req.query.to == undefined){
                ExerciseLog.aggregate([  
-                  { $match: {_id: req.query.userId }},                  
+                  { $match: {_id: req.query.userId }},  
+                  { sort }
                   { $project: {
                     log: { 
                       $filter: {
