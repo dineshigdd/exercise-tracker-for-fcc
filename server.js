@@ -132,7 +132,7 @@ app.get('/api/exercise/log', (req,res)=>{
       if(err){
         return err
       } else{
-        
+        console.log(data)
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
             res.send({ _id: data._id ,
                         count:data.log.length,
@@ -167,7 +167,7 @@ app.get('/api/exercise/log', (req,res)=>{
                 } },
                 { $limit : 2 }
                 ]).exec((err, qdata)=> {
-                  res.send(qdata);
+                  res.send(qdata[0].log[2]);
                 });
              }else{   
         
