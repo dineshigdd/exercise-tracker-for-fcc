@@ -176,9 +176,9 @@ app.get('/api/exercise/log', (req,res)=>{
                     if( err) {
                       return err
                     }else{
-                     for( let i = 0 ; i < data[0].log.length ; i++ )
-                              res.send( data)
-                    }
+                    // for( let i =0 ; i < data[0].log.length ; i++ )
+                              res.send( data[0].log[1] )
+                   }
                })
              }else{   
         
