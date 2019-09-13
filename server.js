@@ -156,22 +156,21 @@ app.get('/api/exercise/log', (req,res)=>{
                 })
             }else if(req.query.from !== undefined && req.query.to == undefined){
                ExerciseLog.aggregate([  
-                   { $limit: 1 },
                   { $match: {_id: req.query.userId }},                  
                   { $project: {
                     log: { 
                       $filter: {
                           input: '$log',
                           as: 'item',
-                          cond: { $gt: ['$$item.date', req.query.from] } 
+                          cond: { $gt: ['$$item.date', req.query.from]} 
                      }
                     
                   }
                 } },
                 
                 
-                ]).sort({"data.log.date":1}).exec((err,data)=>{
-                 err?err:res.send(data.log.date)
+                ]).exec((err,data)=>{
+                 err?err:res.send(data)
                })
              }else{   
         
