@@ -134,9 +134,10 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         console.log(data)
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
-            res.send({ _id: data._id ,
-                        count:data.log.length,
-                        log:data.log})   
+            // res.send({ _id: data._id ,
+            //             count:data.log.length,
+            //             log:data.log})   
+            res.send({ _id: data._id , log:data.log.slice(0,req.query.limit)});
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
@@ -152,7 +153,7 @@ app.get('/api/exercise/log', (req,res)=>{
                 } },
                 
                 ]).exec((err, qdata)=> {
-                  res.send(qdata);
+                    res.send({ _id: qdata[0]._id , log:qdata[0].log.slice(0,req.query.limit)});
                 })
             }else if(req.query.from !== undefined && req.query.to == undefined){
                ExerciseLog.aggregate([
