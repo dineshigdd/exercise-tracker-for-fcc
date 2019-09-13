@@ -150,7 +150,7 @@ app.get('/api/exercise/log', (req,res)=>{
                           cond: expr2
                      }}
                 } },
-                { $limit : 2 }
+                
                 ]).exec((err, qdata)=> {
                   res.send(qdata);
                 })
@@ -165,7 +165,7 @@ app.get('/api/exercise/log', (req,res)=>{
                           cond: expr1
                      }}
                 } },
-                { $limit : 2 }
+                
                 ]).exec((err, qdata)=> {
                 
                     res.send({ _id: qdata[0]._id , log:qdata[0].log.slice(0,req.query.limit)});
@@ -184,7 +184,7 @@ app.get('/api/exercise/log', (req,res)=>{
                             }
                      }}
                 } },
-                { $limit : 2 }
+               
                 ]).exec((err, qdata)=> {
                   res.send(qdata);
                 });
