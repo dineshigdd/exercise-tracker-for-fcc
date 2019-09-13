@@ -155,7 +155,8 @@ app.get('/api/exercise/log', (req,res)=>{
                   res.send(qdata);
                 })
             }else if(req.query.from !== undefined && req.query.to == undefined){
-               ExerciseLog.aggregate([                 
+               ExerciseLog.aggregate([  
+                   { $limit: 1 },
                   { $match: {_id: req.query.userId }},                  
                   { $project: {
                     log: { 
@@ -169,12 +170,10 @@ app.get('/api/exercise/log', (req,res)=>{
                 } },
                 
                 
-                ]).limit(1).exec((err,data)=>{
-                 err?err:res.send(data)
+                ]).sort({"data.log.date":1}).exec((err,data)=>{
+                 err?err:res.send(data.log.date)
                })
-             }else{
-          
-          
+             }else{   
         
                ExerciseLog.aggregate([
                   { $match: {_id: req.query.userId }},
