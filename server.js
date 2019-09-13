@@ -168,7 +168,7 @@ app.get('/api/exercise/log', (req,res)=>{
                 { $limit : 2 }
                 ]).exec((err, qdata)=> {
                 
-                      res.send({ _id: data._id , log:qdata[0].log.slice(0,req.query.limit));
+                    res.send({ _id: qdata[0]._id , log:qdata[0].log.slice(0,req.query.limit)});
                 });
              }else{   
         
