@@ -136,8 +136,9 @@ app.get('/api/exercise/log', (req,res)=>{
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
             // res.send({ _id: data._id ,
             //             count:data.log.length,
-            //             log:data.log})   
-            res.send({ _id: data._id , log:data.log.slice(0,req.query.limit)});
+            //             log:data.log}) 
+            console.log(data[0])
+            res.send({ _id: data._id ,count:data.log.length, log:data.log.slice(0,req.query.limit)});
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
