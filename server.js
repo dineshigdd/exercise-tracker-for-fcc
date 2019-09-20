@@ -132,15 +132,12 @@ app.get('/api/exercise/log', (req,res)=>{
       if(err){
         return err
       } else{
-        console.log(data.log.slice(0,2))
-        if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
-            // res.send({ _id: data._id ,
-            //             count:data.log.length,
-            //             log:data.log}) 
-            // res.json({log:data.log[0].slice(0, parseInt(req.query.limit,10))});
+        //console.log(data.log.slice(0,2))
+        if ( req.query.from == undefined && req.query.to == undefined ){            
+          
             res.send({ _id: data._id ,
                        count:data.log.length, 
-                       log: data.log[0].slice(0, req.query.limit)});
+                       log: data.log.slice(0, req.query.limit)});
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
               
@@ -190,7 +187,7 @@ app.get('/api/exercise/log', (req,res)=>{
                 } },
                
                 ]).exec((err, qdata)=> {
-                  res.send(qdata);
+                  res.send({ _id: qdata[0]._id , log:qdata[0].log.slice(0,req.query.limit)});
                 });
             }
 
