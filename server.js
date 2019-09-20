@@ -132,7 +132,7 @@ app.get('/api/exercise/log', (req,res)=>{
       if(err){
         return err
       } else{
-        //console.log(data.log.slice(0,2))
+        
         if ( req.query.from == undefined && req.query.to == undefined ){            
           
             res.send({ _id: data._id ,
