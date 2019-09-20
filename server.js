@@ -134,10 +134,10 @@ app.get('/api/exercise/log', (req,res)=>{
       } else{
         console.log(data.log.slice(0,2))
         if ( req.query.from == undefined && req.query.to == undefined && req.query.limit == undefined ){
-            // res.send({ _id: data._id ,
-            //             count:data.log.length,
-            //             log:data.log}) 
-            res.json({log:data.log.slice(0, parseInt(req.query.limit,10))});
+            res.send({ _id: data._id ,
+                        count:data.log.length,
+                        log:data.log}) 
+            //res.json({log:data.log.slice(0, parseInt(req.query.limit,10))});
             //res.json({ _id: data._id ,count:data.log.length, log:data.log.slice(0, parseInt(req.query.limit,10))});
         }else{
             if(  req.query.from == undefined && req.query.to !== undefined){
