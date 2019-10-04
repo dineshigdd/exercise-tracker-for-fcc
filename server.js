@@ -147,7 +147,7 @@ app.get("/api/exercise/log", (req, res) => {
                   $filter: {
                     input: "$log",
                     as: "item",
-                    cond: { $gte: ["$$item.date", new Date(req.query.from)] }
+                    cond: { $gte: ["$$item.date", Date.parse(req.query.from)] }
                   }
                 }
               }
