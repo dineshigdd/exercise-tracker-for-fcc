@@ -153,11 +153,11 @@ app.get("/api/exercise/log", (req, res) => {
               }
             }
           ]).exec((err, qdata) => {
-            res.send("test");
-            // {
-            //   _id: qdata[0]._id,
-            //   log: qdata[0].log.slice(0, req.query.limit)
-            // }
+            res.send(
+            {
+              _id: qdata[0]._id,
+              log: qdata[0].log.slice(0, req.query.limit)
+            });
           });
         } else {
           ExerciseLog.aggregate([
