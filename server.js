@@ -107,7 +107,7 @@ app.get("/api/exercise/users", (req, res) => {
 app.get("/api/exercise/log", (req, res) => {
   ExerciseLog.findById({ _id: req.query.userId }, (err, data) => {
     var expr1 = { $gte: ["$$item.date", { $convert:{ input:req.query.from , to:"date"}}] };
-    var expr2 = { $lt: ["$$item.date", { $convert:{ input:req.query.to , to:"date"}}] };
+    var expr2 = { $lte: ["$$item.date", { $convert:{ input:req.query.to , to:"date"}}] };
     if (err) {
       return err;
     } else {
